@@ -11,8 +11,13 @@ trigger:
   exclude:
     - '**/*.yml'
     - '**/*.yaml'
+    - readme.md
 
-    
+resources:
+ repositories:
+   - repository: testAzureDevopsSetup
+     type: git
+     name : testAzureDevopsSetup
 
 # parameters:
 #   env: $(environmentName)
