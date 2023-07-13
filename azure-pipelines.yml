@@ -7,11 +7,17 @@ trigger:
  branches:
    include:
      - develop
+ paths:
+  exclude:
+    - '**/*.yml'
+    - '**/*.yaml'
 
-parameters:
-  env: $(environmentName)
-  tokenName: $(environmentName)Token.json
-  runTestClasses: $(runTestClasses)
+    
+
+# parameters:
+#   env: $(environmentName)
+#   tokenName: $(environmentName)Token.json
+#   runTestClasses: $(runTestClasses)
 
 
 jobs:
@@ -19,7 +25,8 @@ jobs:
   displayName: Validate and deployment
   pool:
     vmImage: ubuntu-latest
-  environment: ${{ parameters.env }}
+  environment: 
+   name: $(environmentName)
   strategy:
     runOnce:
       deploy:
@@ -35,7 +42,7 @@ jobs:
           name: SalesforceToken
           displayName: 'Download auth file for SFDX'
           inputs:
-            secureFile: ${{ parameters.tokenName }}
+            secureFile: $(environmentName)Token.json
         - script: |
             echo "*******SOURCE_BRANCH_NAME****************"
             sourceBranch=$(echo "$BRANCH_NAME" | sed 's|refs/heads/||g')
@@ -71,7 +78,7 @@ jobs:
             fi
           displayName: "Install SFDX and SDG"
         - script: |
-            sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a ${{ parameters.env }}
+            sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a $(environmentName)
           displayName: "Salesforce Login"
         - script: |
             sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o .
@@ -81,17 +88,17 @@ jobs:
             echo "**************************************"
           displayName: "Create a Manifest"
         - script: |
-            if [ ${{ parameters.runTestClasses }} = "true" ]; then
+            if [ $(runTestClasses) = "true" ]; then
               echo "runTestClasses variable set to true, running build with test classes"
-              sfdx force:source:deploy -l RunLocalTests -x manifest/package.xml --targetusername ${{ parameters.env }}
+              sfdx force:source:deploy -l RunLocalTests -x manifest/package.xml --targetusername $(environmentName)
             else
-              sfdx force:source:deploy -x manifest/package.xml --targetusername ${{ parameters.env }}
+              sfdx force:source:deploy -x manifest/package.xml --targetusername $(environmentName)
             fi
           displayName: "Deploy to environment"
         - script: |
-            if [ ${{ parameters.env }} = "PROD" ]; then
-              ver="${{ parameters.env }}-$(date '+%d-%m-%Y-%H-%M')"
-              echo "Deployment to ${{ parameters.env }}, creating and pushing TAG $ver"
+            if [ $(environmentName) = "PROD" ]; then
+              ver="$(environmentName)-$(date '+%d-%m-%Y-%H-%M')"
+              echo "Deployment to $(environmentName), creating and pushing TAG $ver"
               git tag "$ver"
               git push origin "$ver"
             else
