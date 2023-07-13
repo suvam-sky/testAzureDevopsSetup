@@ -6,7 +6,9 @@ private class WelcomeToPwCTest {
     // }
     @isTest
     static void WelcomeToPwCTest() {
+        //WelcomeToPwC.printWelcomeMessage();
         WelcomeToPwC.printWelcomeMessage();
+        
 
     }
 }
