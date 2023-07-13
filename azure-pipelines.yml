@@ -8,10 +8,10 @@ trigger:
    include:
      - develop
 
-parameters:
-  env: $(environmentName)
-  tokenName: $(environmentName)Token.json
-  runTestClasses: $(runTestClasses)
+# parameters:
+#   env: $(environmentName)
+#   tokenName: $(environmentName)Token.json
+#   runTestClasses: $(runTestClasses)
 
 
 jobs:
