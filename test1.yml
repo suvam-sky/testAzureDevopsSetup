@@ -38,7 +38,7 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   environment: 
-   name: $(environmentName)
+   name: ${{ variables.environmentName }}
   strategy:
     runOnce:
       deploy:
@@ -54,7 +54,7 @@ jobs:
           name: SalesforceToken
           displayName: 'Download auth file for SFDX'
           inputs:
-            secureFile: $(environmentName)Token.json
+            secureFile: ${{ variables.environmentName }}Token.json
         - script: |
             echo "*******SOURCE_BRANCH_NAME****************"
             sourceBranch=$(echo "$BRANCH_NAME" | sed 's|refs/heads/||g')
@@ -90,7 +90,7 @@ jobs:
             fi
           displayName: "Install SFDX and SDG"
         - script: |
-            sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a $(environmentName)
+            sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a ${{ variables.environmentName }}
           displayName: "Salesforce Login"
         - script: |
             sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o .
