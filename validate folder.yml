@@ -19,7 +19,7 @@ jobs:
   displayName: Validate
   pool:
     vmImage: ubuntu-latest
-  environment: ${{ parameters.env }}
+  environment: $(environmentName)
   strategy:
     runOnce:
       deploy:
@@ -34,7 +34,7 @@ jobs:
           name: SalesforceToken
           displayName: 'Download auth file for SFDX'
           inputs:
-            secureFile: ${{ parameters.tokenName }}
+            secureFile: $(environmentName)Token.json
         - script: |
             echo "*******SOURCE_BRANCH_NAME****************"
             sourceBranch=$(echo $(Build.SourceBranch) | sed 's|refs/heads/||g')
