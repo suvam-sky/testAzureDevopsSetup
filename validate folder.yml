@@ -57,7 +57,7 @@ jobs:
             fi
           displayName: "Install SFDX and SDG"
         - script: |
-            sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a ${{ parameters.env }}
+            sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a $(environmentName)
           displayName: "Salesforce Login"
 
         - script: |
@@ -71,5 +71,5 @@ jobs:
               fi
             echo "Additional args concatenated: ${SFDX_ARGS}"
 
-            sfdx project deploy start --source-dir ${{ parameters.folderName }} --target-org ${{ parameters.env }} ${SFDX_ARGS} --verbose
+            sfdx project deploy start --source-dir ${{ parameters.folderName }} --target-org $(environmentName) ${SFDX_ARGS} --verbose
           displayName: "Validate code"
