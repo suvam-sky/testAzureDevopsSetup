@@ -38,7 +38,7 @@ jobs:
           name: SalesforceToken
           displayName: 'Download auth file for SFDX'
           inputs:
-            secureFile: $(environmentName)
+            secureFile: $(environmentName)Token.json
         - script: |
             echo "*******SOURCE_BRANCH_NAME****************"
             sourceBranch=$(echo "$SOURCE_BRANCH" | sed 's|refs/heads/||g')
