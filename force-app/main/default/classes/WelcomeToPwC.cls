@@ -10,5 +10,6 @@ public with sharing class WelcomeToPwC {
         System.debug('Welcome to PwC');
         System.debug('Welcome to PwC');
         System.debug('Welcome to PwC');
+        System.debug('New feature 1');
     }
 }
