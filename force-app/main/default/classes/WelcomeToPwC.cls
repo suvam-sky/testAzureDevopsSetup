@@ -13,5 +13,6 @@ public with sharing class WelcomeToPwC {
         System.debug('New feature 1');
         System.debug('New feature 1');
         System.debug('New develop feature 1');
+        System.debug('New develop feature 2');
     }
 }
