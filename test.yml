@@ -1,14 +1,19 @@
+
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger: "none"
-#  paths:
-#   exclude:
-#     - '**/*.yml'
-#     - '**/*.yaml'
-#     - readme.md
+trigger: 
+ branches:
+   include:
+     - develop
+     - qa
+ paths:
+  exclude:
+    - '**/*.yml'
+    - '**/*.yaml'
+    - readme.md
 
 variables:
   - name: environmentName
@@ -113,3 +118,4 @@ jobs:
               echo "Nothing to tag"
             fi
           displayName: "Create TAG for succesfull release"
+
