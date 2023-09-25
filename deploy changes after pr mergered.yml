@@ -1,4 +1,3 @@
-
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
@@ -7,18 +6,21 @@
 trigger:
  branches:
    include:
-     - develop
+     - new_develop
  paths:
   exclude:
     - '**/*.yml'
     - '**/*.yaml'
     - readme.md
 
-resources:
- repositories:
-   - repository: testAzureDevopsSetup
-     type: git
-     name : testAzureDevopsSetup
+
+pr: none
+
+# resources:
+#  repositories:
+#    - repository: testAzureDevopsSetup
+#      type: git
+#      name : testAzureDevopsSetup
 
 # parameters:
 #   env: $(environmentName)
