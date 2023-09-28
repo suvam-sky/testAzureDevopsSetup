@@ -1,1 +1,134 @@
+
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
 trigger: none
+
+parameters:
+- name: freshDeployment
+  displayName: "Deploy all branch content"
+  type: boolean
+  default: "False"
+- name: runTestClasses
+  displayName: "Run test classes"
+  type: boolean
+  default: "False"
+
+# resources:
+#  repositories:
+#    - repository: testAzureDevopsSetup
+#      type: git
+#      name : testAzureDevopsSetup
+
+# parameters:
+#   env: $(environmentName)
+#   tokenName: $(environmentName)Token.json
+#   runTestClasses: $(runTestClasses)
+
+
+jobs:
+  - deployment: DEPLOY
+    displayName: "Deployment to $(environmentName)"
+    variables:
+      SOURCE_BRANCH: $(echo $(Build.SourceBranch) | sed 's|refs/heads/||g')
+    pool: 
+      vmImage: ubuntu-latest
+    environment: $(environmentName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+            persistCredentials: true
+            clean: true
+            fetchDepth: full
+          - script: |
+              echo "Branches and Envs are in policy = "$(environmentName) and $(SOURCE_BRANCH)""
+            displayName: "Branch validator"
+
+          - script: |
+              #If freshDeployment set to true - create package from whole branch. 
+              #Otherwise, check if last build for pipeline named after parameters.env and choosen branch - succeed.
+
+              sourceBranch=$(echo $(Build.SourceBranch) | sed 's|refs/heads/||g')
+              echo "##vso[task.setvariable variable=sourceBranch;]$sourceBranch"
+              echo "$sourceBranch"
+
+              if [ ${{ parameters.freshDeployment }} = "True" ]; then
+                latestBuildCommit=$(git rev-list --all --max-parents=0)
+                echo "Fresh deployment set to true, manifest will be created for whole branch: $sourceBranch starting from commit: $latestBuildCommit"
+                echo "##vso[task.setvariable variable=latestBuildCommit]$latestBuildCommit"
+              else
+                echo "Fresh deployment set to false, Downloading latest build for Environment: $(environmentName) and BranchName: $sourceBranch"
+                curl -H "Authorization: Bearer $(System.AccessToken)" -X GET -L "https://dev.azure.com/suvam1999roy/Azure%20Devops%20Test/_apis/build/latest/$(System.DefinitionId)?branchName=$sourceBranch&api-version=7.0-preview.1" -o sourceVersionResponse.json
+                cat sourceVersionResponse.json
+                if cat sourceVersionResponse.json | grep -o '"result":"[^"]*' | grep -o '[^"]*$' | grep -q succeeded; then
+                  latestBuildCommit=$(cat sourceVersionResponse.json | grep -o '"sourceVersion":"[^"]*' | grep -o '[^"]*$')
+                  echo "Last build succeeded, commit set to latest deployed to environment: $latestBuildCommit"
+                  echo "##vso[task.setvariable variable=latestBuildCommit]$latestBuildCommit"
+                else
+                  latestBuildCommit=$(git rev-list --all --max-parents=0)
+                  echo "Last build failed or error, commit set to initial one from branch $BRANCH_NAME and its $latestBuildCommit"
+                  echo "##vso[task.setvariable variable=latestBuildCommit]$latestBuildCommit"
+                fi
+              fi
+            displayName: "Download latest build commit for environment"
+            env:
+              BRANCH_NAME: $(Build.SourceBranchName)
+              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+          - task: DownloadSecureFile@1
+            name: SalesforceToken
+            displayName: 'Download auth file for SFDX'
+            inputs:
+              secureFile: $(environmentName)Token.json
+          - script: |
+              if ! command -v sfdx &> /dev/null
+                then
+                    echo "SFDX Not found, installing..."
+                    npm install -g sfdx-cli --loglevel verbose
+                    echo y | sfdx plugins:install sfdx-git-delta
+                else
+                    echo "SFDX installed."
+              fi
+            displayName: "Install SFDX, SGD"
+
+          - script: |
+              sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a $(environmentName)Token.json
+            displayName: "Salesforce Login"
+          - script: |
+              SGD_ARGS=""
+              if [ ! -z ${{ parameters.gitignorePath }} ]; then
+                SGD_ARGS+=" --ignore ${{ parameters.gitignorePath }} "
+              fi
+              echo "Additional sgd args: ${SGD_ARGS}"
+              sfdx sgd:source:delta -a 58 --to HEAD --from $(latestBuildCommit) -o . ${SGD_ARGS}
+              echo "*********PACKAGE.XML******************"
+              cat package/package.xml
+              echo
+              echo "**************************************"
+              echo
+              echo "****DESTRUCTIVECHANGES.XML*************"
+              cat destructiveChanges/destructiveChanges.xml
+              echo "**************************************"
+            displayName: "Create a Manifest"
+
+          - script: |
+              echo "Build parameters for SFDX call"
+              SFDX_ARGS=""
+              if [ ! -z ${{ parameters.runTestClasses }} ]; then
+                if [ ${{ parameters.runTestClasses }} = "true" ]; then
+                  SFDX_ARGS+=" --test-level RunLocalTests "
+                fi
+              fi
+              if [ ! -z $(destructiveChangesEnabled) ]; then
+                if [ $(destructiveChangesEnabled) = "true" ]; then
+                  SFDX_ARGS+=" --post-destructive-changes destructiveChanges/destructiveChanges.xml "
+                fi
+              fi
+              echo "Additional args concatenated: ${SFDX_ARGS}"
+              echo "---- Deploying added and modified metadata ----"
+              sfdx project deploy start -x package/package.xml -o $(environmentName)Token.json ${SFDX_ARGS} --verbose --coverage-formatters "json-summary" --results-dir ./junit-result-dir --junit
+            displayName: "Deploy metadata"
