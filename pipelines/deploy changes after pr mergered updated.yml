@@ -104,6 +104,10 @@ jobs:
             fi
           displayName: "Deploy to environment"
         - script: |
+              sfdx force:source:deploy --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u practice123@pwc.com --ignorewarnings 
+            
+          displayName: "Run Destructive Changes"
+        - script: |
             if [ $(environmentName) = "PROD" ]; then
               ver="$(environmentName)-$(date '+%d-%m-%Y-%H-%M')"
               echo "Deployment to $(environmentName), creating and pushing TAG $ver"
