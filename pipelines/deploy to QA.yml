@@ -137,6 +137,6 @@ jobs:
             displayName: "Deploy metadata"
 
           - script: |
-              sfdx force:source:deploy --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u practice123@pwc.com --ignorewarnings 
+              sfdx force:source:deploy --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u test123@pwc.com --ignorewarnings 
             
             displayName: "Run Destructive Changes"
