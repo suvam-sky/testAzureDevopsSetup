@@ -135,3 +135,8 @@ jobs:
               echo "---- Deploying added and modified metadata ----"
               sfdx project deploy start -x package/package.xml -o $(environmentName)Token.json ${SFDX_ARGS} --verbose --coverage-formatters "json-summary" --results-dir ./junit-result-dir --junit
             displayName: "Deploy metadata"
+
+          - script: |
+              sfdx force:source:deploy --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u practice123@pwc.com --ignorewarnings 
+            
+            displayName: "Run Destructive Changes"
