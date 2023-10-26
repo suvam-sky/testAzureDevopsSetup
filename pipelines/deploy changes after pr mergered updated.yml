@@ -6,7 +6,7 @@
 trigger:
  branches:
    include:
-     - new_develop
+     - prj/demo
  paths:
   exclude:
     - '**/*.yml'
