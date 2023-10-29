@@ -66,7 +66,7 @@ jobs:
               echo "Last build succeeded, commit set to latest deployed to environment: $latestBuildCommit"
               echo "##vso[task.setvariable variable=latestBuildCommit]$latestBuildCommit"
             else
-              latestBuildCommit=$(git rev-list --all --max-parents=0)
+              latestBuildCommit=$(commitID)
               echo "Last build failed or error, commit set to initial one from branch $BRANCH_NAME and its $latestBuildCommit"
               echo "##vso[task.setvariable variable=latestBuildCommit]$latestBuildCommit"
             fi
@@ -80,7 +80,7 @@ jobs:
                   echo "SFDX Not found, installing..."
                   npm install -g sfdx-cli --loglevel verbose
                   echo y | sfdx plugins:install sfdx-git-delta
-                  echo y | sfdx plugins:install @salesforce/sfdx-scanner
+                  # echo y | sfdx plugins:install @salesforce/sfdx-scanner
               else
                   echo "SFDX installed."
             fi
