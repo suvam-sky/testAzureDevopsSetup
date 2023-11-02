@@ -101,8 +101,12 @@ jobs:
             # Use grep to search for "<types>" in the XML file
 
             if grep -q "<types>" "$xml_file"; then
+                echo "Deploying metadata to org..."
                 sfdx force:source:deploy -x manifest/package.xml --targetusername $(environmentName)
+                echo "Running Destructive changes..."
+                sfdx force:source:deploy --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u practice123@pwc.com --ignorewarnings 
             else
+                echo "Running Destructive changes..."
                 sfdx force:source:deploy --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u practice123@pwc.com --ignorewarnings 
             fi
             # if [ $(runTestClasses) = "true" ]; then
