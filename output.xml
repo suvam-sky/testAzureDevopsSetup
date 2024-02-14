@@ -1,0 +1,96 @@
+<testsuites>
+<testsuite name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls" tests="6" errors="6">
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls: 7 Calls to System.debug should specify a logging level." type="4">
+4: Calls to System.debug should specify a logging level.
+Category: Best Practices - DebugsShouldUseLoggingLevel
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls
+Line: 7
+Column: 16
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls: 8 Calls to System.debug should specify a logging level." type="4">
+4: Calls to System.debug should specify a logging level.
+Category: Best Practices - DebugsShouldUseLoggingLevel
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls
+Line: 8
+Column: 16
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls: 9 Calls to System.debug should specify a logging level." type="4">
+4: Calls to System.debug should specify a logging level.
+Category: Best Practices - DebugsShouldUseLoggingLevel
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls
+Line: 9
+Column: 16
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls: 10 Calls to System.debug should specify a logging level." type="4">
+4: Calls to System.debug should specify a logging level.
+Category: Best Practices - DebugsShouldUseLoggingLevel
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls
+Line: 10
+Column: 16
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls: 11 Calls to System.debug should specify a logging level." type="4">
+4: Calls to System.debug should specify a logging level.
+Category: Best Practices - DebugsShouldUseLoggingLevel
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls
+Line: 11
+Column: 16
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls: 12 Calls to System.debug should specify a logging level." type="4">
+4: Calls to System.debug should specify a logging level.
+Category: Best Practices - DebugsShouldUseLoggingLevel
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwC.cls
+Line: 12
+Column: 16
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls" tests="3" errors="3">
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls: 8 Apex unit test classes should have at least one System.assert() or assertEquals() or AssertNotEquals() call" type="2">
+2: Apex unit test classes should have at least one System.assert() or assertEquals() or AssertNotEquals() call
+Category: Best Practices - ApexUnitTestClassShouldHaveAsserts
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls
+Line: 8
+Column: 17
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#apexunittestclassshouldhaveasserts
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls: 8 Classes should not have non-constructor methods with the same name as the class" type="3">
+3: Classes should not have non-constructor methods with the same name as the class
+Category: Error Prone - MethodWithSameNameAsEnclosingClass
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls
+Line: 8
+Column: 17
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_errorprone.html#methodwithsamenameasenclosingclass
+</failure>
+</testcase>
+<testcase name="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls">
+<failure message="D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls: 8 Method name does not begin with a lower case character." type="3">
+3: Method name does not begin with a lower case character.
+Category: Code Style - MethodNamingConventions
+File: D:\new projects\azure devops new\testAzureDevops\testAzureDevopsSetup\force-app\main\default\classes\WelcomeToPwCTest.cls
+Line: 8
+Column: 17
+URL: https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_codestyle.html#methodnamingconventions
+</failure>
+</testcase>
+</testsuite>
+</testsuites>

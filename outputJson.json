@@ -1,0 +1,113 @@
+[
+    {
+      "engine": "pmd-custom",
+      "fileName": "D:\\new projects\\azure devops new\\testAzureDevops\\testAzureDevopsSetup\\force-app\\main\\default\\classes\\WelcomeToPwC.cls",
+      "violations": [
+        {
+          "line": "7",
+          "column": "16",
+          "endLine": "7",
+          "endColumn": "20",
+          "severity": 4,
+          "ruleName": "DebugsShouldUseLoggingLevel",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel",
+          "message": "\r\nCalls to System.debug should specify a logging level.\r\n"
+        },
+        {
+          "line": "8",
+          "column": "16",
+          "endLine": "8",
+          "endColumn": "20",
+          "severity": 4,
+          "ruleName": "DebugsShouldUseLoggingLevel",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel",
+          "message": "\r\nCalls to System.debug should specify a logging level.\r\n"
+        },
+        {
+          "line": "9",
+          "column": "16",
+          "endLine": "9",
+          "endColumn": "20",
+          "severity": 4,
+          "ruleName": "DebugsShouldUseLoggingLevel",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel",
+          "message": "\r\nCalls to System.debug should specify a logging level.\r\n"
+        },
+        {
+          "line": "10",
+          "column": "16",
+          "endLine": "10",
+          "endColumn": "20",
+          "severity": 4,
+          "ruleName": "DebugsShouldUseLoggingLevel",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel",
+          "message": "\r\nCalls to System.debug should specify a logging level.\r\n"
+        },
+        {
+          "line": "11",
+          "column": "16",
+          "endLine": "11",
+          "endColumn": "20",
+          "severity": 4,
+          "ruleName": "DebugsShouldUseLoggingLevel",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel",
+          "message": "\r\nCalls to System.debug should specify a logging level.\r\n"
+        },
+        {
+          "line": "12",
+          "column": "16",
+          "endLine": "12",
+          "endColumn": "20",
+          "severity": 4,
+          "ruleName": "DebugsShouldUseLoggingLevel",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#debugsshoulduselogginglevel",
+          "message": "\r\nCalls to System.debug should specify a logging level.\r\n"
+        }
+      ]
+    },
+    {
+      "engine": "pmd-custom",
+      "fileName": "D:\\new projects\\azure devops new\\testAzureDevops\\testAzureDevopsSetup\\force-app\\main\\default\\classes\\WelcomeToPwCTest.cls",
+      "violations": [
+        {
+          "line": "8",
+          "column": "17",
+          "endLine": "13",
+          "endColumn": "5",
+          "severity": 2,
+          "ruleName": "ApexUnitTestClassShouldHaveAsserts",
+          "category": "Best Practices",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_bestpractices.html#apexunittestclassshouldhaveasserts",
+          "message": "\r\nApex unit test classes should have at least one System.assert() or assertEquals() or AssertNotEquals() call\r\n"
+        },
+        {
+          "line": "8",
+          "column": "17",
+          "endLine": "13",
+          "endColumn": "5",
+          "severity": 3,
+          "ruleName": "MethodWithSameNameAsEnclosingClass",
+          "category": "Error Prone",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_errorprone.html#methodwithsamenameasenclosingclass",
+          "message": "\r\nClasses should not have non-constructor methods with the same name as the class\r\n"
+        },
+        {
+          "line": "8",
+          "column": "17",
+          "endLine": "13",
+          "endColumn": "5",
+          "severity": 3,
+          "ruleName": "MethodNamingConventions",
+          "category": "Code Style",
+          "url": "https://pmd.github.io/pmd-6.54.0/pmd_rules_apex_codestyle.html#methodnamingconventions",
+          "message": "\r\nMethod name does not begin with a lower case character.\r\n"
+        }
+      ]
+    }
+  ]
