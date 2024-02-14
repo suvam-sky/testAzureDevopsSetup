@@ -15,7 +15,7 @@ parameters:
 - name: runTestClasses
   displayName: "Run test classes"
   type: boolean
-  default: "False"
+  default: "true"
 - name: gitignorePath
   default: "" 
 
