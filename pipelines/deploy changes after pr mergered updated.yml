@@ -98,7 +98,7 @@ jobs:
         - script: |
             if [ $(runTestClasses) = "true" ]; then
               echo "runTestClasses variable set to true, running build with test classes"
-              sfdx force:source:deploy -l RunSpecifiedTests -r WelcomeToPwCTest,WelcomeQATest  -x manifest/package.xml --targetusername $(environmentName) 
+              sfdx force:source:deploy -l RunSpecifiedTests -r $(classNames)  -x manifest/package.xml --targetusername $(environmentName) 
               # sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous
                # Run Salesforce tests and extract code coverage percentage
               # coverage_output=$(sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous)
