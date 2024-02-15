@@ -104,7 +104,7 @@ jobs:
               coverage_output=$(sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous)
               # coverage_percentage=$(echo "$coverage_output" | grep -oP '\d+%')
               echo "-----------code coverage: $coverage_output"
-              percentages=$(echo "$coverage_output" | awk '/^[^=]*[0-9]+%/{print $3}')
+              percentages=$(echo "$coverage_output" | awk 'CLASSES')
               echo "-----------code coverage: $percentages"
               # Iterate through percentages and check if any is below 90%
               while read -r percentage; do
