@@ -104,18 +104,47 @@ jobs:
               coverage_output=$(sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous)
               # coverage_percentage=$(echo "$coverage_output" | grep -oP '\d+%')
               echo "-----------code coverage: $coverage_output"
-              percentages=$(echo "$coverage_output" | awk 'CLASSES')
-              echo "-----------code coverage: $percentages"
-              # Iterate through percentages and check if any is below 90%
-              while read -r percentage; do
-                  if [[ ${percentage%?} -lt 90 ]]; then
-                      echo "Code coverage below 90%: $percentage"
-                      exit 1  # Exit with failure code
-                  fi
-              done <<< "$percentages"
+              # percentages=$(echo "$coverage_output" | awk 'CLASSES')
+              # echo "-----------code coverage: $percentages"
+              # # Iterate through percentages and check if any is below 90%
+              # while read -r percentage; do
+              #     if [[ ${percentage%?} -lt 90 ]]; then
+              #         echo "Code coverage below 90%: $percentage"
+              #         exit 1  # Exit with failure code
+              #     fi
+              # done <<< "$percentages"
 
-              echo "All code coverage percentages are 90% or above."
-              exit 0  # Exit with success code
+               IFS=$'\n' read -r -a lines <<< "$coverage_output"
+                classes=()
+                percentages=()
+
+                # Loop through each line of coverage_output to find "CLASSES" and "PERCENTAGES" columns
+                for line in "${lines[@]}"; do
+                    if [[ "$line" =~ ^CLASSES: ]]; then
+                        IFS=' ' read -r -a classes <<< "${line#*:}"
+                    elif [[ "$line" =~ ^PERCENTAGES: ]]; then
+                        IFS=' ' read -r -a percentages <<< "${line#*:}"
+                    fi
+                done
+
+                # Loop through classes and percentages to check if any class has coverage below 90%
+                failed=false
+                for ((i=0; i<${#classes[@]}; i++)); do
+                    class="${classes[i]}"
+                    percentage="${percentages[i]}"
+                    if (( $(echo "$percentage < 90" | bc -l) )); then
+                        echo "Code coverage for $class is below 90% ($percentage%)"
+                        failed=true
+                    fi
+                done
+
+                # Fail the pipeline if any class has coverage below 90%
+                if [ "$failed" = true ]; then
+                    exit 1
+                fi
+
+              # echo "All code coverage percentages are 90% or above."
+              # exit 0  # Exit with success code
 
               # Fail the build if coverage is below 90%
               # if [ "${coverage_percentage%\%}" -lt 90 ]; then
