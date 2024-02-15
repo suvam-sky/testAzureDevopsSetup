@@ -98,7 +98,8 @@ jobs:
         - script: |
             if [ $(runTestClasses) = "true" ]; then
               echo "runTestClasses variable set to true, running build with test classes"
-              sfdx force:source:deploy -l RunLocalTests -x manifest/package.xml --targetusername $(environmentName) --codecoverage
+              sfdx force:source:deploy -l RunLocalTests  -x manifest/package.xml --targetusername $(environmentName) 
+              sfdx apex run test --code-coverage  -l RunLocalTests -r human 
             else
               sfdx force:source:deploy -x manifest/package.xml --targetusername $(environmentName)
             fi
