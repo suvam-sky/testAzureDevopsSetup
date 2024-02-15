@@ -99,11 +99,23 @@ jobs:
             if [ $(runTestClasses) = "true" ]; then
               echo "runTestClasses variable set to true, running build with test classes"
               sfdx force:source:deploy -l RunLocalTests  -x manifest/package.xml --targetusername $(environmentName) 
-              # sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous
+              sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous
                # Run Salesforce tests and extract code coverage percentage
               coverage_output=$(sfdx apex run test --code-coverage  -l RunLocalTests -r human --target-org $(environmentName) --synchronous)
               # coverage_percentage=$(echo "$coverage_output" | grep -oP '\d+%')
               echo "-----------code coverage: $coverage_output"
+              percentages=$(echo "$coverage_output" | awk '/^[^=]*[0-9]+%/{print $3}')
+
+              # Iterate through percentages and check if any is below 90%
+              while read -r percentage; do
+                  if [[ ${percentage%?} -lt 90 ]]; then
+                      echo "Code coverage below 90%: $percentage"
+                      exit 1  # Exit with failure code
+                  fi
+              done <<< "$percentages"
+
+              echo "All code coverage percentages are 90% or above."
+              exit 0  # Exit with success code
 
               # Fail the build if coverage is below 90%
               # if [ "${coverage_percentage%\%}" -lt 90 ]; then
