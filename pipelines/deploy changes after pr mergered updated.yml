@@ -89,7 +89,7 @@ jobs:
             sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a $(environmentName)
           displayName: "Salesforce Login"
         - script: |
-            sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o . --ignore "/force-app-target/qa/classes"
+            sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o . --ignore /force-app-target/qa/classes
             mv package/package.xml manifest/package.xml
             echo "*********PACKAGE.XML******************"
             cat manifest/package.xml
