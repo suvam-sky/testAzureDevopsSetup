@@ -80,7 +80,7 @@ jobs:
                   echo "SFDX Not found, installing..."
                   npm install -g sfdx-cli --loglevel verbose
                   echo y | sfdx plugins:install sfdx-git-delta
-                  echo y | sfdx plugins:install @salesforce/sfdx-scanner
+                  # echo y | sfdx plugins:install @salesforce/sfdx-scanner
               else
                   echo "SFDX installed."
             fi
@@ -89,7 +89,8 @@ jobs:
             sfdx auth:sfdxurl:store -f $(SalesforceToken.secureFilePath) -a $(environmentName)
           displayName: "Salesforce Login"
         - script: |
-            sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o .
+            SOURCE_PATTERNS="force-app/main/default,force-app-target/qa"
+            sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o .  --ignore devops/gitignore/.fileIgnore
             mv package/package.xml manifest/package.xml
             echo "*********PACKAGE.XML******************"
             cat manifest/package.xml
