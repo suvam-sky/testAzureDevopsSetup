@@ -90,7 +90,7 @@ jobs:
           displayName: "Salesforce Login"
         - script: |
             SOURCE_PATTERNS="force-app/main/default,force-app-target/qa"
-            sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o .  --source "$SOURCE_PATTERNS"
+            sfdx sgd:source:delta --to HEAD --from $(latestBuildCommit) -o .  --ignore devops/gitignore/.fileIgnore
             mv package/package.xml manifest/package.xml
             echo "*********PACKAGE.XML******************"
             cat manifest/package.xml
