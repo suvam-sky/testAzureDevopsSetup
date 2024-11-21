@@ -103,7 +103,7 @@ jobs:
 
             if grep -q "<types>" "$xml_file"; then
                 echo "Deploying metadata to org..."
-                sf project deploy start -x manifest/package.xml --targetusername $(environmentName)
+                sf project deploy start -x manifest/package.xml --target-org $(environmentName)
                 echo "Running Destructive changes..."
                 sf project deploy start --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml -u practice123@pwc.com --ignorewarnings 
             else
