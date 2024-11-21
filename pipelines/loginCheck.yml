@@ -105,10 +105,10 @@ jobs:
                 echo "Deploying metadata to org..."
                 sf project deploy start -x manifest/package.xml --target-org $(environmentName)
                 echo "Running Destructive changes..."
-                sf project deploy start --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml --target-org practice123@pwc.com --ignorewarnings 
+                sf project deploy start --manifest ./destructiveChanges/package.xml  ./destructiveChanges/destructiveChangesPost.xml --target-org practice123@pwc.com 
             else
                 echo "Running Destructive changes..."
-                sf project deploy start --manifest ./destructiveChanges/package.xml --postdestructivechanges ./destructiveChanges/destructiveChangesPost.xml --target-org practice123@pwc.com --ignorewarnings 
+                sf project deploy start --manifest ./destructiveChanges/package.xml  ./destructiveChanges/destructiveChangesPost.xml --target-org practice123@pwc.com 
             fi
         #     # if [ $(runTestClasses) = "true" ]; then
         #     #   echo "runTestClasses variable set to true, running build with test classes"
